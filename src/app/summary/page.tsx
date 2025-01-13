@@ -14,12 +14,13 @@ interface SummaryData{
 
 export default function Summary({params}: {params: {url: string}}){
   const searchParams = useSearchParams();
-  const [data, setData] = useState<SummaryData>()
+  const [data, setData] = useState<SummaryData>({ summary: '', topics: [] });
   const [isLoading, setLoading] = useState(true)
   const [isError, setError] = useState(false)
+  console.log(isError, params)
 
-  useEffect(() => {
-    fetch(`http://localhost:5000/summarize?url=${searchParams.get("url")}`, {
+  useEffect(() => { // http://localhost:5000/summarize?url=${searchParams.get("url")} https://backend-resumeai.vercel.app/summarize?url=${searchParams.get("url")}
+    fetch(`https://backend-resumeai.vercel.app/summarize?url=${searchParams.get("url")}`, {
       method: "POST",
     }).then((res) => res.json())
        .then((data: SummaryData) => {
@@ -32,6 +33,7 @@ export default function Summary({params}: {params: {url: string}}){
           setError(true);
           setLoading(false);
        })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams.get("url")])
 
   if(isLoading){
