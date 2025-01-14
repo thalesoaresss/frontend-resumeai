@@ -19,7 +19,7 @@ function SummaryContent() {
   console.log(isError)
 
   useEffect(() => {
-    fetch(`http://localhost:5000/summarize?url=${searchParams.get("url")}`, {
+    fetch(`https://backend-resumeeai.vercel.app/summarize?url=${searchParams.get("url")}`, {
       method: "POST",
     }).then((res) => res.json())
        .then((data: SummaryData) => {
